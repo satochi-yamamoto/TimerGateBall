@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var alarmPlayer: MediaPlayer
 
+    private var preTimer: CountDownTimer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,11 +55,15 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun startTimer() {
+        if (timerRunning) return // Evita múltiplos timers
         speak("Iniciando contagem regressiva de 30 minutos")
-        object : CountDownTimer(3000, 1000) {
+        preTimer?.cancel()
+        preTimer = object : CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                mediaPlayer.seekTo(0)
-                mediaPlayer.start()
+                try {
+                    mediaPlayer.seekTo(0)
+                    mediaPlayer.start()
+                } catch (_: Exception) {}
             }
             override fun onFinish() {
                 startMainTimer()
@@ -128,5 +134,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         mediaPlayer.release()
         alarmPlayer.release()
         countDownTimer?.cancel()
+        preTimer?.cancel()
     }
 }
