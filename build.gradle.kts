@@ -6,4 +6,7 @@ dependencies {
     // ViewModel e Lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    // Text-to-Speech and Media Player
+    implementation("androidx.media:media:1.6.0")
+    implementation("androidx.annotation:annotation:1.5.0")
 }
