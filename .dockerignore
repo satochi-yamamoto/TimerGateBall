@@ -1,0 +1,7 @@
+.git
+*/build
+build
+.gradle
+local.properties
+**/.gradle
+**/build
