@@ -4,6 +4,7 @@ Aplicativo Android simples que inicia uma contagem regressiva de 30 minutos com 
 
 ## Como executar
 
+
 ### Usando Android Studio
 1. Abra o projeto no Android Studio.
 2. Conecte um dispositivo ou inicie um emulador Android.
