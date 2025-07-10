@@ -1,5 +1,5 @@
 # Simple Dockerfile for building the Android project
-FROM ubuntu:22.04 as builder
+FROM ubuntu:22.04 AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -23,7 +23,10 @@ ENV PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools
 WORKDIR /workspace
 COPY . /workspace
 
-RUN chmod +x gradlew && ./gradlew assembleDebug --no-daemon
+# Configure the Android SDK location for Gradle
+RUN echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties \
+    && chmod +x gradlew \
+    && ./gradlew assembleDebug --no-daemon
 
-FROM scratch as export
+FROM scratch AS export
 COPY --from=builder /workspace/app/build/outputs/apk/debug/app-debug.apk /app-debug.apk
